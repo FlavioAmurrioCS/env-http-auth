@@ -4,9 +4,9 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "http-auth"
+name = "env-http-auth"
 dynamic = ["version"]
-description = "TBH"
+description = "Lightweight HTTP authentication via environment variables"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
@@ -37,12 +37,17 @@ dev = [
   { include-group = "types" },
 ]
 test = [
+  "httpx",
+  "requests",
   "pytest",
+  "keyring",
   "tomli ; python_version < '3.11'",
 ]
 types_packages = [
   { include-group = "test" },
   "typing-extensions",
+  "types-requests",
+  "keyring",
 ]
 types = [
   { include-group = "types_packages" },
@@ -59,16 +64,16 @@ docs = [
   "mkdocs-material",
   "mkdocs-marimo",
   "pymdown-extensions",
-  "click==8.2.1",
+  # "click==8.2.1",
 ]
 
 [project.urls]
-Documentation = "https://github.com/FlavioAmurrioCS/http-auth#readme"
-Issues = "https://github.com/FlavioAmurrioCS/http-auth/issues"
-Source = "https://github.com/FlavioAmurrioCS/http-auth"
+Documentation = "https://github.com/FlavioAmurrioCS/env-http-auth#readme"
+Issues = "https://github.com/FlavioAmurrioCS/env-http-auth/issues"
+Source = "https://github.com/FlavioAmurrioCS/env-http-auth"
 
 [project.scripts]
-http-auth = "http_auth.__main__:main"
+env-http-auth = "env_http_auth.__main__:main"
 
 ###############################################################################
 # region: hatch
@@ -77,7 +82,7 @@ http-auth = "http_auth.__main__:main"
 source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/http_auth/_version.py"
+version-file = "src/env_http_auth/_version.py"
 
 [tool.hatch.envs.hatch-test]
 dependency-groups = [
@@ -90,11 +95,10 @@ dependency-groups = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/http_auth tests}"
+check = "mypy --install-types --non-interactive {args:src/env_http_auth tests}"
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
-  "3.9",
   "3.10",
   "3.11",
   "3.12",
@@ -118,14 +122,14 @@ index-url = "https://pypi.org/simple"
 # region: coverage
 ###############################################################################
 [tool.coverage.run]
-source_pkgs = ["http_auth", "tests"]
+source_pkgs = ["env_http_auth", "tests"]
 branch = true
 parallel = true
 omit = [
 ]
 
 [tool.coverage.paths]
-http_auth = ["src/http_auth"]
+env_http_auth = ["src/env_http_auth"]
 tests = ["tests"]
 
 [tool.coverage.report]
@@ -197,6 +201,14 @@ docstring-code-line-length = 100
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
   "S101",
+  "S105",
+  "ARG002",
+  "F841",
+  "PLR2004",
+  "S607",
+]
+"src/**/*.py" = [
+  "ANN401",
 ]
 ###############################################################################
 # endregion: ruff
