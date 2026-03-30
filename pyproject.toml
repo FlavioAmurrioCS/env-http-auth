@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 [project]
 name = "http-auth"
 dynamic = ["version"]
-description = "TBH"
+description = "Lightweight HTTP authentication via environment variables"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
@@ -37,12 +37,17 @@ dev = [
   { include-group = "types" },
 ]
 test = [
+  "httpx",
+  "requests",
   "pytest",
+  "keyring",
   "tomli ; python_version < '3.11'",
 ]
 types_packages = [
   { include-group = "test" },
   "typing-extensions",
+  "types-requests",
+  "keyring",
 ]
 types = [
   { include-group = "types_packages" },
@@ -59,7 +64,7 @@ docs = [
   "mkdocs-material",
   "mkdocs-marimo",
   "pymdown-extensions",
-  "click==8.2.1",
+  # "click==8.2.1",
 ]
 
 [project.urls]
@@ -94,7 +99,6 @@ check = "mypy --install-types --non-interactive {args:src/http_auth tests}"
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
-  "3.9",
   "3.10",
   "3.11",
   "3.12",
@@ -197,6 +201,14 @@ docstring-code-line-length = 100
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
   "S101",
+  "S105",
+  "ARG002",
+  "F841",
+  "PLR2004",
+  "S607",
+]
+"src/**/*.py" = [
+  "ANN401",
 ]
 ###############################################################################
 # endregion: ruff
