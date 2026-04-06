@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from http_auth import netrc_
+from env_http_auth import netrc_
 
 if TYPE_CHECKING:
     from collections.abc import Generator
@@ -107,7 +107,7 @@ class TestNetrcIntegration:
     """Integration tests for netrc with resolver."""
 
     def test_resolver_uses_netrc(self, valid_netrc: str, monkeypatch: pytest.MonkeyPatch) -> None:
-        from http_auth import resolver
+        from env_http_auth import resolver
 
         monkeypatch.setenv("NETRC", valid_netrc)
         res = resolver.AuthResolver(sources={"netrc"})

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CONFIG_PATH = Path(os.path.expanduser("~/.http-auth.ini"))
+DEFAULT_CONFIG_PATH = Path(os.path.expanduser("~/.env-http-auth.ini"))
 
 
 def get_auth_from_config(
@@ -21,7 +21,7 @@ def get_auth_from_config(
 ) -> dict[str, str] | None:
     """Get auth from INI config file.
 
-    Config file format (~/.http-auth.ini):
+    Config file format (~/.env-http-auth.ini):
         [example.com]
         token = my-token
         scheme = bearer
@@ -33,7 +33,7 @@ def get_auth_from_config(
 
     Args:
         hostname: The hostname to look up auth for.
-        config_path: Path to config file. Default: ~/.http-auth.ini
+        config_path: Path to config file. Default: ~/.env-http-auth.ini
 
     Returns:
         Dict with Authorization header or None if not found.

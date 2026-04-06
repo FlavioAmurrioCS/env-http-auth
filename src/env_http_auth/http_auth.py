@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from typing import Any
 from urllib.parse import urlparse
 
-from http_auth.resolver import AuthResolver
+from env_http_auth.resolver import AuthResolver
 
 logger = logging.getLogger(__name__)
 
@@ -24,13 +24,13 @@ class HTTPEnvAuth:
     Works with both requests and httpx libraries.
 
     Optional extras:
-        - requests: pip install http-auth[requests]
-        - httpx: pip install http-auth[httpx]
+        - requests: pip install env-http-auth[requests]
+        - httpx: pip install env-http-auth[httpx]
 
     Example:
         >>> # With requests
         >>> import requests
-        >>> from http_auth import HTTPEnvAuth
+        >>> from env_http_auth import HTTPEnvAuth
         >>> # Set env var: HTTP_AUTH_TOKEN_example_com=my-token
         >>> requests.get("https://example.com/path", auth=HTTPEnvAuth())
 

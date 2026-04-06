@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from http_auth import resolver
+from env_http_auth import resolver
 
 if TYPE_CHECKING:
     import pytest

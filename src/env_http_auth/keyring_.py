@@ -18,7 +18,7 @@ def get_auth_from_keyring(hostname: str) -> dict[str, str] | None:
     try:
         import keyring
 
-        service = f"http-auth:{hostname}"
+        service = hostname
 
         token = keyring.get_password(service, "token")
         if token:

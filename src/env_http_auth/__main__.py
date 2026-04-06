@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from http_auth import get_auth_header
+from env_http_auth import get_auth_header
 
 
 def main(argv: list[str] | None = None) -> int:

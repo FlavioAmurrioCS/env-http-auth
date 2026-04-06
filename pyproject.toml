@@ -4,7 +4,7 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "http-auth"
+name = "env-http-auth"
 dynamic = ["version"]
 description = "Lightweight HTTP authentication via environment variables"
 readme = "README.md"
@@ -68,12 +68,12 @@ docs = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/FlavioAmurrioCS/http-auth#readme"
-Issues = "https://github.com/FlavioAmurrioCS/http-auth/issues"
-Source = "https://github.com/FlavioAmurrioCS/http-auth"
+Documentation = "https://github.com/FlavioAmurrioCS/env-http-auth#readme"
+Issues = "https://github.com/FlavioAmurrioCS/env-http-auth/issues"
+Source = "https://github.com/FlavioAmurrioCS/env-http-auth"
 
 [project.scripts]
-http-auth = "http_auth.__main__:main"
+env-http-auth = "env_http_auth.__main__:main"
 
 ###############################################################################
 # region: hatch
@@ -82,7 +82,7 @@ http-auth = "http_auth.__main__:main"
 source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/http_auth/_version.py"
+version-file = "src/env_http_auth/_version.py"
 
 [tool.hatch.envs.hatch-test]
 dependency-groups = [
@@ -95,7 +95,7 @@ dependency-groups = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/http_auth tests}"
+check = "mypy --install-types --non-interactive {args:src/env_http_auth tests}"
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
@@ -122,14 +122,14 @@ index-url = "https://pypi.org/simple"
 # region: coverage
 ###############################################################################
 [tool.coverage.run]
-source_pkgs = ["http_auth", "tests"]
+source_pkgs = ["env_http_auth", "tests"]
 branch = true
 parallel = true
 omit = [
 ]
 
 [tool.coverage.paths]
-http_auth = ["src/http_auth"]
+env_http_auth = ["src/env_http_auth"]
 tests = ["tests"]
 
 [tool.coverage.report]

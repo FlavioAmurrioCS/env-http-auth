@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from unittest import mock
 
-from http_auth import http_auth
+from env_http_auth import http_auth
 
 if TYPE_CHECKING:
     import pytest

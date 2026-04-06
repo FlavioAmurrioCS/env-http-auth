@@ -160,7 +160,7 @@ export HTTP_AUTH_HEADER_example_com=CustomScheme credentials
 
 This convention can be adopted by any tool that needs HTTP authentication. Implementations:
 
-- **http-auth** (Python) - Full implementation with optional config/netrc/keyring
+- **env-http-auth** (Python) - Full implementation with optional config/netrc/keyring
 - BuildKit (Go) - Partial implementation
 - Others are welcome to adopt
 

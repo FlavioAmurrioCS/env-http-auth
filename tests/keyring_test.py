@@ -3,7 +3,7 @@ from __future__ import annotations
 import base64
 from unittest import mock
 
-from http_auth import keyring_
+from env_http_auth import keyring_
 
 
 class TestKeyringToken:
@@ -13,7 +13,7 @@ class TestKeyringToken:
     def test_token_found(self, mock_get_password: mock.MagicMock) -> None:
         mock_get_password.return_value = "my-secret-token"
         result = keyring_.get_auth_from_keyring("example.com")
-        mock_get_password.assert_called_with("http-auth:example.com", "token")
+        mock_get_password.assert_called_with("example.com", "token")
         assert result == {"Authorization": "Bearer my-secret-token"}
 
     @mock.patch("keyring.get_password")
@@ -67,7 +67,7 @@ class TestKeyringIntegration:
 
     @mock.patch("keyring.get_password")
     def test_resolver_uses_keyring(self, mock_get_password: mock.MagicMock) -> None:
-        from http_auth import resolver
+        from env_http_auth import resolver
 
         mock_get_password.return_value = "resolver-token"
         res = resolver.AuthResolver(sources={"keyring"})

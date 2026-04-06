@@ -1,10 +1,10 @@
-# Agent Guidelines for http-auth
+# Agent Guidelines for env-http-auth
 
-This document provides guidelines for AI agents working on the http-auth project.
+This document provides guidelines for AI agents working on the env-http-auth project.
 
 ## Project Overview
 
-http-auth is a lightweight Python library for HTTP authentication via environment variables.
+env-http-auth is a lightweight Python library for HTTP authentication via environment variables.
 
 - Zero dependencies by default (stdlib only)
 - Optional dependencies: requests, httpx, keyring
@@ -189,7 +189,7 @@ except ImportError:
 The CLI entry point is configured in pyproject.toml:
 ```toml
 [project.scripts]
-http-auth = "http_auth.__main__:main"
+env-http-auth = "env_http_auth.__main__:main"
 ```
 
 ## Testing

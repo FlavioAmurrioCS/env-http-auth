@@ -22,7 +22,7 @@ class AuthResolver:
 
     Priority:
         1. Environment variables (exact host, suffix, global)
-        2. Config file (~/.http-auth.ini)
+        2. Config file (~/.env-http-auth.ini)
         3. netrc (~/.netrc)
         4. System keyring
 
@@ -89,19 +89,19 @@ class AuthResolver:
     def _try_source(self, source: str, hostname: str) -> dict[str, str] | None:
         """Try to get auth from a specific source."""
         if source == "env":
-            from http_auth.env import get_auth_from_env
+            from env_http_auth.env import get_auth_from_env
 
             return get_auth_from_env(hostname, self.env_prefix)
         if source == "netrc":
-            from http_auth.netrc_ import get_auth_from_netrc
+            from env_http_auth.netrc_ import get_auth_from_netrc
 
             return get_auth_from_netrc(hostname)
         if source == "keyring":
-            from http_auth.keyring_ import get_auth_from_keyring
+            from env_http_auth.keyring_ import get_auth_from_keyring
 
             return get_auth_from_keyring(hostname)
         if source == "config":
-            from http_auth.config import get_auth_from_config
+            from env_http_auth.config import get_auth_from_config
 
             return get_auth_from_config(hostname)
         logger.warning("Unknown auth source: %s", source)

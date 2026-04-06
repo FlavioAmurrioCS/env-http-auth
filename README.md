@@ -1,7 +1,7 @@
-# http-auth
+# env-http-auth
 
-[![PyPI - Version](https://img.shields.io/pypi/v/http-auth.svg)](https://pypi.org/project/http-auth)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/http-auth.svg)](https://pypi.org/project/http-auth)
+[![PyPI - Version](https://img.shields.io/pypi/v/env-http-auth.svg)](https://pypi.org/project/env-http-auth)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/env-http-auth.svg)](https://pypi.org/project/env-http-auth)
 
 Lightweight HTTP authentication via environment variables for httpx, requests, and raw HTTP clients.
 
@@ -15,7 +15,7 @@ Lightweight HTTP authentication via environment variables for httpx, requests, a
 
 ## Table of Contents
 
-- [http-auth](#http-auth)
+- [env-http-auth](#env-http-auth)
   - [Features](#features)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
@@ -44,14 +44,14 @@ Lightweight HTTP authentication via environment variables for httpx, requests, a
 ## Installation
 
 ```console
-pip install http-auth
+pip install env-http-auth
 ```
 
 ## Quick Start
 
 ```python
 import os
-from http_auth import get_auth
+from env_http_auth import get_auth
 
 # Set environment variable
 os.environ["HTTP_AUTH_TOKEN_example_com"] = "my-token"
@@ -113,7 +113,7 @@ export HTTP_AUTH_TOKEN_example_com=user:pass
 ### Basic usage
 
 ```python
-from http_auth import get_auth, get_auth_header
+from env_http_auth import get_auth, get_auth_header
 
 # Get full auth dict
 auth = get_auth("https://example.com/path")
@@ -127,7 +127,7 @@ header = get_auth_header("https://example.com/path")
 ### Using requests
 
 ```python
-from http_auth import HTTPEnvAuth
+from env_http_auth import HTTPEnvAuth
 import requests
 
 # Set environment variable
@@ -143,7 +143,7 @@ response = requests.get(
 ### Using httpx
 
 ```python
-from http_auth import HTTPEnvAuth
+from env_http_auth import HTTPEnvAuth
 import httpx
 
 # Set environment variable
@@ -159,7 +159,7 @@ response = client.get("https://example.com/api/data")
 For more control over authentication sources:
 
 ```python
-from http_auth import AuthResolver
+from env_http_auth import AuthResolver
 
 # Use only specific sources
 resolver = AuthResolver(sources={"env", "netrc"})
@@ -179,7 +179,7 @@ When resolving authentication, sources are tried in this order:
 1. **Exact host match** - `HTTP_AUTH_TOKEN_example_com`
 2. **Suffix match** - `HTTP_AUTH_TOKEN__example_com` (double underscore)
 3. **Global env vars** - `HTTP_AUTH_TOKEN`
-4. **Config file** - `~/.http-auth.ini`
+4. **Config file** - `~/.env-http-auth.ini`
 5. **netrc** - `~/.netrc`
 6. **keyring** - System keyring
 
@@ -207,16 +207,16 @@ Stores credentials in the system keyring:
 import keyring
 
 # Store token
-keyring.set_password("http-auth:example.com", "token", "my-secret")
+keyring.set_password("example.com", "token", "my-secret")
 
 # Store Basic auth
-keyring.set_password("http-auth:example.com", "username", "admin")
-keyring.set_password("http-auth:example.com", "password", "secret")
+keyring.set_password("example.com", "username", "admin")
+keyring.set_password("example.com", "password", "secret")
 ```
 
 ### Config File
 
-INI format at `~/.http-auth.ini`:
+INI format at `~/.env-http-auth.ini`:
 
 ```ini
 [example.com]
@@ -236,22 +236,22 @@ Get authentication headers from the command line:
 ```bash
 # Basic usage
 $ export HTTP_AUTH_TOKEN_example_com=my-token
-$ http-auth https://example.com
+$ env-http-auth https://example.com
 Authorization: Bearer my-token
 
 # Header only (value only)
-$ http-auth --header-only https://example.com
+$ env-http-auth --header-only https://example.com
 Bearer my-token
 
 # No auth found
-$ http-auth https://unknown.com
+$ env-http-auth https://unknown.com
 No authentication found for https://unknown.com
 ```
 
 ### CLI Options
 
 ```
-http-auth [-h] [--header-only] url
+env-http-auth [-h] [--header-only] url
 
 Get HTTP authentication header for a URL
 
@@ -269,4 +269,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-http-auth is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+env-http-auth is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.

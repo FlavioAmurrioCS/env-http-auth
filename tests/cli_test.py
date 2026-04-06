@@ -4,7 +4,7 @@ import subprocess
 
 import pytest
 
-from http_auth import __main__
+from env_http_auth import __main__
 
 
 class TestCLI:
@@ -49,7 +49,7 @@ class TestCLIIntegration:
     def test_entry_point(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setenv("HTTP_AUTH_TOKEN_example_com", "entry-token")
         result = subprocess.run(
-            ["python", "-m", "http_auth", "https://example.com"],
+            ["python", "-m", "env_http_auth", "https://example.com"],
             check=False,
             capture_output=True,
             text=True,
@@ -60,7 +60,7 @@ class TestCLIIntegration:
     def test_entry_point_no_auth(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("HTTP_AUTH_TOKEN", raising=False)
         result = subprocess.run(
-            ["python", "-m", "http_auth", "https://example.com"],
+            ["python", "-m", "env_http_auth", "https://example.com"],
             check=False,
             capture_output=True,
             text=True,

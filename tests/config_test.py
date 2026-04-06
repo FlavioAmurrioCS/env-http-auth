@@ -9,7 +9,7 @@ from unittest import mock
 
 import pytest
 
-from http_auth import config
+from env_http_auth import config
 
 if TYPE_CHECKING:
     from collections.abc import Generator
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 def temp_config() -> Generator[Path, None, None]:
     """Create a temporary config file."""
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".ini", delete=False, prefix=".http-auth"
+        mode="w", suffix=".ini", delete=False, prefix=".env-http-auth"
     ) as f:
         yield Path(f.name)
     os.unlink(f.name)
@@ -108,7 +108,7 @@ class TestConfigIntegration:
     """Integration tests for config with resolver."""
 
     def test_resolver_uses_config(self, valid_config: Path) -> None:
-        from http_auth import resolver
+        from env_http_auth import resolver
 
         res = resolver.AuthResolver(sources={"config"})
         with mock.patch.object(config, "DEFAULT_CONFIG_PATH", valid_config):
