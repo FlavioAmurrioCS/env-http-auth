@@ -33,9 +33,7 @@ def get_auth_from_keyring(hostname: str) -> dict[str, str] | None:
 
     except ImportError:
         logger.debug("keyring not installed, skipping")
-    except KeyError:
-        logger.debug("Failed to read keyring for %s", hostname)
-    except OSError:
+    except (KeyError, OSError):
         logger.debug("Failed to read keyring for %s", hostname)
 
     return None
