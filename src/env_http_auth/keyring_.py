@@ -2,6 +2,15 @@ from __future__ import annotations
 
 import base64
 import logging
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from keyring.errors import NoKeyringError
+else:
+    try:
+        from keyring.errors import NoKeyringError
+    except ImportError:
+        NoKeyringError = Exception
 
 logger = logging.getLogger(__name__)
 
@@ -33,9 +42,7 @@ def get_auth_from_keyring(hostname: str) -> dict[str, str] | None:
 
     except ImportError:
         logger.debug("keyring not installed, skipping")
-    except KeyError:
-        logger.debug("Failed to read keyring for %s", hostname)
-    except OSError:
+    except (KeyError, OSError, NoKeyringError):
         logger.debug("Failed to read keyring for %s", hostname)
 
     return None
